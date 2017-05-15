@@ -8,8 +8,8 @@ Second, it keeps track of loaned goods
 #  Functionality
 It uses C# as a frontend and a Microsoft 2008 SQL Server for the backend.
 
-When an item is loaned to family or friend, the following is entered into a
- database:
+When an item is loaned to family or a friend, the following is entered into a
+ table:
 
 * Primary Key
 * Item Name
