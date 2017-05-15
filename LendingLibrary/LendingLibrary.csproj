@@ -49,6 +49,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,23 +61,39 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LentItemsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LentItemsDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ProgWindow.cs">
+    <Compile Include="AddEntryPopup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgWindow.Designer.cs">
-      <DependentUpon>ProgWindow.cs</DependentUpon>
+    <Compile Include="AddEntryPopup.Designer.cs">
+      <DependentUpon>AddEntryPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoanedItemsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoanedItemsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ProgMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgMenu.Designer.cs">
+      <DependentUpon>ProgMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ProgWindow.resx">
-      <DependentUpon>ProgWindow.cs</DependentUpon>
+    <Compile Include="RemoveEntryPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoveEntryPopup.Designer.cs">
+      <DependentUpon>RemoveEntryPopup.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddEntryPopup.resx">
+      <DependentUpon>AddEntryPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgMenu.resx">
+      <DependentUpon>ProgMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,17 +104,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RemoveEntryPopup.resx">
+      <DependentUpon>RemoveEntryPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="LentItemsDataSet.xsc">
-      <DependentUpon>LentItemsDataSet.xsd</DependentUpon>
+    <None Include="LoanedItemsDataSet.xsc">
+      <DependentUpon>LoanedItemsDataSet.xsd</DependentUpon>
     </None>
-    <None Include="LentItemsDataSet.xsd">
+    <None Include="LoanedItemsDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LentItemsDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>LoanedItemsDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="LentItemsDataSet.xss">
-      <DependentUpon>LentItemsDataSet.xsd</DependentUpon>
+    <None Include="LoanedItemsDataSet.xss">
+      <DependentUpon>LoanedItemsDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -109,12 +130,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LentItems.mdf">
+    <Content Include="LoanedItems.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="LentItems_log.ldf">
+    <Content Include="LoanedItems_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>LentItems.mdf</DependentUpon>
+      <DependentUpon>LoanedItems.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
