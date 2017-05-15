@@ -18,3 +18,9 @@ When an item is loaned to family or a friend, the following is entered into a
 * Date Returned (if returned)
 * Description of the Item
 
+#  Notes on the Project
+Admittedly, this is the first time I have used an IDE in a few years, and
+ I have never used C#, SQL or .Net prior to this.
+
+I will be slowly adding files to the .gitignore list as soon as I know which
+ files are not required by others to build the project.
