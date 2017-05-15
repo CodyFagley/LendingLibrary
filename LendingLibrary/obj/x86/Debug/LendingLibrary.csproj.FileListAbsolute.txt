@@ -1,0 +1,10 @@
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\bin\Debug\LendingLibrary.exe
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\bin\Debug\LendingLibrary.pdb
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\obj\x86\Debug\LendingLibrary.Properties.Resources.resources
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\obj\x86\Debug\LendingLibrary.csproj.GenerateResource.Cache
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\obj\x86\Debug\LendingLibrary.exe
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\obj\x86\Debug\LendingLibrary.pdb
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\bin\Debug\LentItems.mdf
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\bin\Debug\LentItems_log.ldf
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\bin\Debug\LendingLibrary.exe.config
+C:\Users\Cody\Projects\LendingLibrary\LendingLibrary\obj\x86\Debug\LendingLibrary.ProgWindow.resources
