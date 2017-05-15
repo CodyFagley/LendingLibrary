@@ -1,6 +1,20 @@
 # Cody && Lisa's Lending Library
-This serves as a dual-purpose project.
+This project was inspired by Handel IT and serves a few purposes.
 
-*  First, it is my code example for a C# w/ Microsoft SQL 2008 server
-*  Second, it tracks items that we lend to friends and family
+First, it fulfills the requirement for the interview process with Handel IT
+
+Second, it keeps track of loaned goods
+
+#  Functionality
+It uses C# as a frontend and a Microsoft 2008 SQL Server for the backend.
+
+When an item is loaned to family or friend, the following is entered into a
+ database:
+
+* Primary Key
+* Item Name
+* Name of Loanee
+* Date Loaned
+* Date Returned (if returned)
+* Description of the Item
 
