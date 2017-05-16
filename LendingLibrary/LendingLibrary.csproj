@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{89F871BD-CFE2-4A78-B62D-14B9EB9BDA31}</ProjectGuid>
+    <ProjectGuid>{70FD5FEB-BCC7-4AC9-ADC9-1CD2FB64AE29}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LendingLibrary</RootNamespace>
@@ -13,21 +13,6 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -49,8 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,38 +44,33 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddEntryPopup.cs">
+    <Compile Include="Database\LLDatabase.cs" />
+    <Compile Include="UI\AddEntryPopup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEntryPopup.Designer.cs">
+    <Compile Include="UI\AddEntryPopup.designer.cs">
       <DependentUpon>AddEntryPopup.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoanedItemsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LoanedItemsDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ProgMenu.cs">
+    <Compile Include="UI\ProgMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgMenu.Designer.cs">
+    <Compile Include="UI\ProgMenu.designer.cs">
       <DependentUpon>ProgMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemoveEntryPopup.cs">
+    <Compile Include="UI\ReturnEntryPopup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RemoveEntryPopup.Designer.cs">
-      <DependentUpon>RemoveEntryPopup.cs</DependentUpon>
+    <Compile Include="UI\ReturnEntryPopup.designer.cs">
+      <DependentUpon>ReturnEntryPopup.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddEntryPopup.resx">
+    <EmbeddedResource Include="UI\AddEntryPopup.resx">
       <DependentUpon>AddEntryPopup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProgMenu.resx">
+    <EmbeddedResource Include="UI\ProgMenu.resx">
       <DependentUpon>ProgMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -104,21 +82,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RemoveEntryPopup.resx">
-      <DependentUpon>RemoveEntryPopup.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ReturnEntryPopup.resx">
+      <DependentUpon>ReturnEntryPopup.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
-    <None Include="LoanedItemsDataSet.xsc">
-      <DependentUpon>LoanedItemsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="LoanedItemsDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LoanedItemsDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LoanedItemsDataSet.xss">
-      <DependentUpon>LoanedItemsDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,47 +94,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LoanedItems.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="LoanedItems_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>LoanedItems.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Sql.Server.Express.10.0">
-      <Visible>False</Visible>
-      <ProductName>SQL Server 2008 Express</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 4.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

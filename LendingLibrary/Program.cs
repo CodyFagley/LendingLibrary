@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using LendingLibrary.Database;
 
 namespace LendingLibrary
 {
@@ -20,10 +21,15 @@ namespace LendingLibrary
     {
         /*  LendingLibrary Return Codes:
          *      0, if program exits successfully
+         *     -1, if the database is not created correctly
          */
         [STAThread]
         static int Main()
         {
+            LLDatabase data = new LLDatabase();
+            int rtn = data.init();
+            if (rtn < 0) return rtn;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ProgMenu());
