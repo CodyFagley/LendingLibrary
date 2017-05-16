@@ -26,21 +26,11 @@ namespace LendingLibrary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CODY-PC\\LENDLIBRARY;Initial Catalog=Items;Integrated Security=True")]
-        public string ItemsConnectionString {
-            get {
-                return ((string)(this["ItemsConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\LoanedItems.mdf;Integra" +
             "ted Security=True;Connect Timeout=30;User Instance=True")]
-        public string LentItemsConnectionString {
+        public string LoanedItemsConnectionString {
             get {
-                return ((string)(this["LentItemsConnectionString"]));
+                return ((string)(this["LoanedItemsConnectionString"]));
             }
         }
     }
