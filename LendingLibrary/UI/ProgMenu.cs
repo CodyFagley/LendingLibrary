@@ -15,20 +15,24 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using LendingLibrary.Database;
 
 namespace LendingLibrary
 {
     public partial class ProgMenu : Form
     {
-        public ProgMenu()
+        LLDatabase db;
+
+        public ProgMenu(LLDatabase DB)
         {
             InitializeComponent();
+            db = DB;
         }
 
         //  Creates an instance of AddEntryPopup
         private void addEntryButton_Click(object sender, EventArgs e)
         {
-            AddEntryPopup aep = new AddEntryPopup();
+            AddEntryPopup aep = new AddEntryPopup(db);
             aep.ShowDialog();
         }
 

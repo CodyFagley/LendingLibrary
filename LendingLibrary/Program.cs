@@ -32,7 +32,7 @@ namespace LendingLibrary
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProgMenu());
+            Application.Run(new ProgMenu(data));
 
             return 0;
         }

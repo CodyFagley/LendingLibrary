@@ -15,15 +15,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using LendingLibrary.Database;
 
 namespace LendingLibrary
 {
     public partial class AddEntryPopup : Form
     {
+        private LLDatabase db;
+
         //  Constructor
-        public AddEntryPopup()
+        public AddEntryPopup(LLDatabase DB)
         {
             InitializeComponent();
+            db = DB;
         }
 
         //  Discard the current entry and close the window
@@ -36,7 +40,11 @@ namespace LendingLibrary
         private void addEntryButton_Click(object sender, EventArgs e)
         {
             //  TODO:  Add the current entry
+            int rtn = db.insertToItems(itemNameText.Text, itemLendeeText.Text, 
+                itemDatePicker.Value, itemDescriptionText.Text, 
+                itemAverageCheckbox.Checked);
 
+            if (rtn < 0) MessageBox.Show("Entry could not be Added");
 
             Close();
         }
