@@ -16,6 +16,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LendingLibrary.Database;
+using LendingLibrary.UI;
+using System.Data.SqlClient;
 
 namespace LendingLibrary
 {
@@ -34,6 +36,27 @@ namespace LendingLibrary
         {
             AddEntryPopup aep = new AddEntryPopup(db);
             aep.ShowDialog();
+        }
+
+        private void queryEntriesButton_Click(object sender, EventArgs e)
+        {
+            QueryResultsPopup qrp = new QueryResultsPopup(db);
+            SqlDataAdapter sda = db.query();
+
+            qrp.showData(sda);
+            qrp.ShowDialog();
+            db.closeConnection();
+        }
+
+        //  Creates a List of items that are checked out by a lendee
+        private void queryLendeeButton_Click(object sender, EventArgs e)
+        {
+            QueryResultsPopup qrp = new QueryResultsPopup(db);
+            SqlDataAdapter sda = db.query(lendeeQueryText.Text);
+
+            qrp.showData(sda);
+            qrp.ShowDialog();
+            db.closeConnection();
         }
 
 

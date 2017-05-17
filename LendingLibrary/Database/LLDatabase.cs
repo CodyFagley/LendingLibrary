@@ -35,14 +35,15 @@ namespace LendingLibrary.Database
          */
         public int init()
         {
+            conn = new SqlConnection("Server=CODY-PC\\LENDLIBRARY;Integrated security=SSPI;database=master");
+
             bool fileExist = File.Exists("C:\\ItemsData.mdf");
             int rtn = 0;
 
             if (!fileExist)
             {
                 //  Attempt to create Database
-                rtn = createDatabase("Items");
-                if (rtn < 0) return -1;
+                if (createDatabase("Items") < 0) return -1;
                 conn = new SqlConnection("Server=CODY-PC\\LENDLIBRARY;Integrated security=SSPI;database=Items");
 
                 //  Attempt to create Table within Database
@@ -51,8 +52,6 @@ namespace LendingLibrary.Database
             }
             else
             {
-                //deleteDatabase("Items");
-
                 conn = new SqlConnection("Server=CODY-PC\\LENDLIBRARY;Integrated security=SSPI;database=Items");
                 rtn = 1;
             }
@@ -121,7 +120,7 @@ namespace LendingLibrary.Database
          *      0, if Successful
          *     -1, if the Item is not added
          */
-        public int insertToItems(String name, String lendee, DateTime lend, String descript, bool avg)
+        public int insertToItems(String name, String lendee, DateTime lend, String descript, Boolean avg)
         {
             String commStr = "INSERT INTO dbo.Items (ITEM_NAME,ITEM_LENDEE," +
                 "ITEM_DATE_LEND,ITEM_DESCRIPTION,ITEM_INCLUDE_IN_AVG) " +
@@ -132,11 +131,7 @@ namespace LendingLibrary.Database
             c.Parameters.AddWithValue("@lendee", lendee);
             c.Parameters.AddWithValue("@lenddate", lend);
             c.Parameters.AddWithValue("@descript", descript);
-
-            int bitVal;
-            if (avg) bitVal = 1; else bitVal = 0;
-
-            c.Parameters.AddWithValue("@avg", bitVal);
+            c.Parameters.AddWithValue("@avg", avg);
 
             try
             {
@@ -157,7 +152,56 @@ namespace LendingLibrary.Database
             return 0;
         }
 
+        /*  
+         *  queryLendee() returns a data adapter for filling a data table with one lendee
+         *      NOTE:  NEED TO CLOSE CONNECTION AFTER USING THIS
+         */
+        public SqlDataAdapter query(String lendee)
+        {
+            conn.Open();
+            String commStr = "SELECT ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, "+
+                "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG "+
+                "FROM Items WHERE ITEM_LENDEE='" + lendee + "'";
 
+            return new SqlDataAdapter(commStr, conn);
+            //  NOTE:  NEED TO CLOSE THE CONNECTION AFTER USING THIS FUNCTION!!
+        }
+
+        /*
+         *  queryAll() returns a data adapter for filling a data table with all data
+         *      NOTE:  NEED TO CLOSE CONNECTION AFTER USING THIS
+         */
+        public SqlDataAdapter query()
+        {
+            conn.Open();
+            String commStr = "SELECT ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, " +
+                "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG FROM Items";
+
+            return new SqlDataAdapter(commStr, conn);
+            //  NOTE:  NEED TO CLOSE THE CONNECTION AFTER USING THIS FUNCTION!!
+        }
+
+        //
+        //  Helper Functions
+        //
+
+        /*
+         *  UNSAFE:  Opens the connection to the server
+         *      Use with caution and annotate heavily
+         */
+        public void openConnection()
+        {
+            if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
+        }
+
+        /*
+         *  UNSAFE:  Closes the connection to the server
+         *      Use with caution and annotate heavily
+         */
+        public void closeConnection()
+        {
+            if (conn.State == System.Data.ConnectionState.Open) conn.Close();
+        }
 
         /*  performCommand() executes a command on a given connection
          *  Returns:
