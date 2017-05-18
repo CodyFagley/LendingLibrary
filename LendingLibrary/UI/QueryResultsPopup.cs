@@ -24,9 +24,17 @@ namespace LendingLibrary.UI
         public void showData(SqlDataAdapter sda)
         {
             DataTable t = new DataTable();
-            sda.Fill(t);
-
-            queryDataViewer.DataSource = t;
+            try
+            {
+                sda.Fill(t);
+                queryDataViewer.DataSource = t;
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "LendingLibrary", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
+
     }
 }

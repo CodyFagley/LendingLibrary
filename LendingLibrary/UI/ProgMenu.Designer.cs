@@ -32,7 +32,6 @@
             this.queryLendeeButton = new System.Windows.Forms.Button();
             this.queryEntriesButton = new System.Windows.Forms.Button();
             this.lendeeQueryText = new System.Windows.Forms.TextBox();
-            this.returnEntryButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -73,15 +72,6 @@
             this.lendeeQueryText.Size = new System.Drawing.Size(120, 20);
             this.lendeeQueryText.TabIndex = 3;
             // 
-            // returnEntryButton
-            // 
-            this.returnEntryButton.Location = new System.Drawing.Point(20, 63);
-            this.returnEntryButton.Name = "returnEntryButton";
-            this.returnEntryButton.Size = new System.Drawing.Size(120, 23);
-            this.returnEntryButton.TabIndex = 4;
-            this.returnEntryButton.Text = "Return Entry";
-            this.returnEntryButton.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -97,7 +87,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 172);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.returnEntryButton);
             this.Controls.Add(this.lendeeQueryText);
             this.Controls.Add(this.queryEntriesButton);
             this.Controls.Add(this.queryLendeeButton);
@@ -117,7 +106,6 @@
         private System.Windows.Forms.Button queryLendeeButton;
         private System.Windows.Forms.Button queryEntriesButton;
         private System.Windows.Forms.TextBox lendeeQueryText;
-        private System.Windows.Forms.Button returnEntryButton;
         private System.Windows.Forms.Label label1;
     }
 }

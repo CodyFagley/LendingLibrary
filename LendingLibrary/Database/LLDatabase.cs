@@ -19,6 +19,12 @@ namespace LendingLibrary.Database
 {
     public class LLDatabase
     {
+        //  COMPUTER SPECIFIC CONSTANTS
+        String server = "Server=CODY-PC\\LENDLIBRARY";
+        String ssis = "Integrated security=SSPI";
+        String dbname = "Inventory";
+
+        //  Stored Variables
         private SqlConnection conn;
 
         //  Constructors
@@ -35,16 +41,16 @@ namespace LendingLibrary.Database
          */
         public int init()
         {
-            conn = new SqlConnection("Server=CODY-PC\\LENDLIBRARY;Integrated security=SSPI;database=master");
+            conn = new SqlConnection(server + ";" + ssis + ";database=master");
 
-            bool fileExist = File.Exists("C:\\ItemsData.mdf");
+            bool fileExist = File.Exists("C:\\"+dbname+"Data.mdf");
             int rtn = 0;
 
             if (!fileExist)
             {
                 //  Attempt to create Database
-                if (createDatabase("Items") < 0) return -1;
-                conn = new SqlConnection("Server=CODY-PC\\LENDLIBRARY;Integrated security=SSPI;database=Items");
+                if (createDatabase(dbname) < 0) return -1;
+                conn = new SqlConnection(server + ";" + ssis + ";database="+dbname);
 
                 //  Attempt to create Table within Database
                 rtn = createItemsTable();
@@ -52,7 +58,9 @@ namespace LendingLibrary.Database
             }
             else
             {
-                conn = new SqlConnection("Server=CODY-PC\\LENDLIBRARY;Integrated security=SSPI;database=Items");
+                conn = new SqlConnection(server + ";" + ssis + ";database="+dbname);
+
+
                 rtn = 1;
             }
 
@@ -67,23 +75,23 @@ namespace LendingLibrary.Database
          *  Returns:
          *      0, if successful
          */
-        private int createDatabase(String dbname)
+        private int createDatabase(String DBname)
         {
             //  Define the Database Creation String
-            String commStr = "CREATE DATABASE "+dbname+" ON PRIMARY " +
-                "(NAME = "+dbname+"_Data,FILENAME = 'C:\\"+dbname+"Data.mdf',"+
+            String commStr = "CREATE DATABASE "+DBname+" ON PRIMARY " +
+                "(NAME = "+DBname+"_Data,FILENAME = 'C:\\"+DBname+"Data.mdf',"+
                 "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%) " +
-                "LOG ON (NAME = "+dbname+"_Log, FILENAME = 'C:\\"+dbname+
+                "LOG ON (NAME = "+DBname+"_Log, FILENAME = 'C:\\"+DBname+
                 "Log.ldf', SIZE = 1MB, MAXSIZE = 5MB, FILEGROWTH = 10%)";
 
             //  Create the Database
             return performCommand(commStr);
         }
 
-        private int deleteDatabase(String dbname)
+        private int deleteDatabase(String DBname)
         {
             //  Define the Command String
-            String commStr = "DROP DATABASE " + dbname;
+            String commStr = "DROP DATABASE " + DBname;
 
             //  Delete the Database
             return performCommand(commStr);
@@ -109,7 +117,8 @@ namespace LendingLibrary.Database
                 "ITEM_DATE_LEND date NOT NULL," +
                 "ITEM_DATE_RETURN date," +
                 "ITEM_DESCRIPTION varchar(255)," +
-                "ITEM_INCLUDE_IN_AVG bit NOT NULL)";
+                "ITEM_INCLUDE_IN_AVG bit NOT NULL," +
+                "ITEM_IS_DELETED bit NOT NULL)";
 
             return performCommand(commStr);
         }
@@ -123,8 +132,8 @@ namespace LendingLibrary.Database
         public int insertToItems(String name, String lendee, DateTime lend, String descript, Boolean avg)
         {
             String commStr = "INSERT INTO dbo.Items (ITEM_NAME,ITEM_LENDEE," +
-                "ITEM_DATE_LEND,ITEM_DESCRIPTION,ITEM_INCLUDE_IN_AVG) " +
-                "VALUES (@name, @lendee, @lenddate, @descript, @avg)";
+                "ITEM_DATE_LEND,ITEM_DESCRIPTION,ITEM_INCLUDE_IN_AVG," +
+                "ITEM_IS_DELETED) VALUES (@name, @lendee, @lenddate, @descript, @avg, @del)";
             SqlCommand c = new SqlCommand(commStr, conn);
 
             c.Parameters.AddWithValue("@name", name);
@@ -132,6 +141,7 @@ namespace LendingLibrary.Database
             c.Parameters.AddWithValue("@lenddate", lend);
             c.Parameters.AddWithValue("@descript", descript);
             c.Parameters.AddWithValue("@avg", avg);
+            c.Parameters.AddWithValue("@del", false);
 
             try
             {
@@ -152,6 +162,20 @@ namespace LendingLibrary.Database
             return 0;
         }
 
+        /*  deleteItem() updates isDeleted to be true for item, primKey
+         *  
+         *      Returns:
+         *          0, if successful
+         *         -1, if item is not soft deleted
+         */     
+        public int deleteItem(int primKey)
+        {
+            String commStr = String.Format("UPDATE " + dbname + " SET ITEM_IS_DELETED = 1 " +
+                "WHERE ITEM_ID = {0}", primKey);
+
+            return performCommand(commStr);
+        }
+
         /*  
          *  queryLendee() returns a data adapter for filling a data table with one lendee
          *      NOTE:  NEED TO CLOSE CONNECTION AFTER USING THIS
@@ -161,7 +185,8 @@ namespace LendingLibrary.Database
             conn.Open();
             String commStr = "SELECT ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, "+
                 "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG "+
-                "FROM Items WHERE ITEM_LENDEE='" + lendee + "'";
+                "FROM Items WHERE ITEM_LENDEE='" + lendee + "' AND " +
+                "ITEM_IS_DELETED=0";
 
             return new SqlDataAdapter(commStr, conn);
             //  NOTE:  NEED TO CLOSE THE CONNECTION AFTER USING THIS FUNCTION!!
@@ -175,7 +200,8 @@ namespace LendingLibrary.Database
         {
             conn.Open();
             String commStr = "SELECT ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, " +
-                "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG FROM Items";
+                "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG FROM Items " +
+                "WHERE ITEM_IS_DELETED=0";
 
             return new SqlDataAdapter(commStr, conn);
             //  NOTE:  NEED TO CLOSE THE CONNECTION AFTER USING THIS FUNCTION!!
@@ -186,8 +212,8 @@ namespace LendingLibrary.Database
         //
 
         /*
-         *  UNSAFE:  Opens the connection to the server
-         *      Use with caution and annotate heavily
+         *  Opens the connection to the server
+         *      Use with caution, annotate heavily, and always close the connection
          */
         public void openConnection()
         {
@@ -195,7 +221,7 @@ namespace LendingLibrary.Database
         }
 
         /*
-         *  UNSAFE:  Closes the connection to the server
+         *  Closes the connection to the server
          *      Use with caution and annotate heavily
          */
         public void closeConnection()
@@ -203,7 +229,7 @@ namespace LendingLibrary.Database
             if (conn.State == System.Data.ConnectionState.Open) conn.Close();
         }
 
-        /*  performCommand() executes a command on a given connection
+        /*  performCommand() executes a command on a given 
          *  Returns:
          *      0, if successful
          *     -1, if unsuccessful

@@ -45,6 +45,8 @@ namespace LendingLibrary
 
             qrp.showData(sda);
             qrp.ShowDialog();
+
+            sda.Dispose();
             db.closeConnection();
         }
 
@@ -56,9 +58,9 @@ namespace LendingLibrary
 
             qrp.showData(sda);
             qrp.ShowDialog();
+
+            sda.Dispose();
             db.closeConnection();
         }
-
-
     }
 }
