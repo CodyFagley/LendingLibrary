@@ -183,7 +183,7 @@ namespace LendingLibrary.Database
         public SqlDataAdapter query(String lendee)
         {
             conn.Open();
-            String commStr = "SELECT ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, "+
+            String commStr = "SELECT ITEM_ID, ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, "+
                 "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG "+
                 "FROM Items WHERE ITEM_LENDEE='" + lendee + "' AND " +
                 "ITEM_IS_DELETED=0";
@@ -199,7 +199,7 @@ namespace LendingLibrary.Database
         public SqlDataAdapter query()
         {
             conn.Open();
-            String commStr = "SELECT ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, " +
+            String commStr = "SELECT ITEM_ID, ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, " +
                 "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG FROM Items " +
                 "WHERE ITEM_IS_DELETED=0";
 
@@ -240,7 +240,7 @@ namespace LendingLibrary.Database
             try
             {
                 //  Open the Connection
-                conn.Open();
+                if (conn.State == System.Data.ConnectionState.Closed) conn.Open();
                 c.ExecuteNonQuery();
             }
             catch (System.Exception ex)
