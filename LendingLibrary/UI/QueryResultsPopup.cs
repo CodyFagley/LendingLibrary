@@ -65,6 +65,47 @@ namespace LendingLibrary.UI
             ReturnEntryPopup rep = new ReturnEntryPopup(key, db);
             rep.Text = t.Rows[row].Field<string>(2);
             rep.ShowDialog();
+            Close();
+        }
+
+        /*
+         *  Creates Delete Entry Window for the Selected Entry
+         */
+        private void deleteEntryButton_Click(object sender, EventArgs e)
+        {
+            //  Get selected row in dataviewer and retrieve primary key value
+            int row = queryDataViewer.SelectedRows[0].Index;
+            int key = t.Rows[row].Field<int>(0);
+            //MessageBox.Show(key.ToString());
+
+            db.deleteItem(key);
+            Close();
+        }
+
+        /*
+         *  Creates Update Entry Window for the Selected Entry
+         */
+        private void updateEntryButton_Click(object sender, EventArgs e)
+        {
+            //  Get selected row in dataviewer and retrieve primary key value
+            int row = queryDataViewer.SelectedRows[0].Index;
+            int key = t.Rows[row].Field<int>(0);
+            //MessageBox.Show(key.ToString());
+
+            //  Existing Fields
+            String iname = t.Rows[row].Field<String>(2);
+            String ilendee = t.Rows[row].Field<String>(1);
+            String idescript = t.Rows[row].Field<String>(3);
+            DateTime ilend = t.Rows[row].Field<DateTime>(4);
+            DateTime ireturn = t.Rows[row].Field<DateTime>(5);
+
+            UpdateEntryPopup uep = new UpdateEntryPopup(db, key);
+            
+            //  Populate Form
+            uep.init(iname, ilendee, ilend, ireturn, idescript);
+
+            uep.ShowDialog();
+            Close();
         }
 
     }

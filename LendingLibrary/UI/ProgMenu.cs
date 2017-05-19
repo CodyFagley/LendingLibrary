@@ -25,6 +25,7 @@ namespace LendingLibrary
     {
         LLDatabase db;
 
+        //  Constructors
         public ProgMenu(LLDatabase DB)
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace LendingLibrary
             aep.ShowDialog();
         }
 
+        //  Creates an instance of QueryResultsPopup
         private void queryEntriesButton_Click(object sender, EventArgs e)
         {
             QueryResultsPopup qrp = new QueryResultsPopup(db);

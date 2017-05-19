@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+ *  ReturnEntryPopup.cs
+ *  Cody Fagley
+ *  Authored on May 18, 2017
+ */
+
+/*
+ *  An entry should be "returned" in the database
+ *  when the object has been physically returned.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

@@ -31,6 +31,7 @@
             this.queryDataViewer = new System.Windows.Forms.DataGridView();
             this.returnEntryButton = new System.Windows.Forms.Button();
             this.deleteEntryButton = new System.Windows.Forms.Button();
+            this.updateEntryButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.queryDataViewer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,14 +46,14 @@
             this.queryDataViewer.ReadOnly = true;
             this.queryDataViewer.RowHeadersWidth = 20;
             this.queryDataViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.queryDataViewer.Size = new System.Drawing.Size(691, 362);
+            this.queryDataViewer.Size = new System.Drawing.Size(678, 362);
             this.queryDataViewer.TabIndex = 0;
             // 
             // returnEntryButton
             // 
-            this.returnEntryButton.Location = new System.Drawing.Point(697, 98);
+            this.returnEntryButton.Location = new System.Drawing.Point(684, 98);
             this.returnEntryButton.Name = "returnEntryButton";
-            this.returnEntryButton.Size = new System.Drawing.Size(75, 23);
+            this.returnEntryButton.Size = new System.Drawing.Size(88, 23);
             this.returnEntryButton.TabIndex = 1;
             this.returnEntryButton.Text = "Return Entry";
             this.returnEntryButton.UseVisualStyleBackColor = true;
@@ -60,18 +61,30 @@
             // 
             // deleteEntryButton
             // 
-            this.deleteEntryButton.Location = new System.Drawing.Point(697, 207);
+            this.deleteEntryButton.Location = new System.Drawing.Point(684, 207);
             this.deleteEntryButton.Name = "deleteEntryButton";
-            this.deleteEntryButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteEntryButton.Size = new System.Drawing.Size(88, 23);
             this.deleteEntryButton.TabIndex = 2;
             this.deleteEntryButton.Text = "Delete Entry";
             this.deleteEntryButton.UseVisualStyleBackColor = true;
+            this.deleteEntryButton.Click += new System.EventHandler(this.deleteEntryButton_Click);
+            // 
+            // updateEntryButton
+            // 
+            this.updateEntryButton.Location = new System.Drawing.Point(684, 151);
+            this.updateEntryButton.Name = "updateEntryButton";
+            this.updateEntryButton.Size = new System.Drawing.Size(88, 23);
+            this.updateEntryButton.TabIndex = 3;
+            this.updateEntryButton.Text = "Update Entry";
+            this.updateEntryButton.UseVisualStyleBackColor = true;
+            this.updateEntryButton.Click += new System.EventHandler(this.updateEntryButton_Click);
             // 
             // QueryResultsPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 362);
+            this.Controls.Add(this.updateEntryButton);
             this.Controls.Add(this.deleteEntryButton);
             this.Controls.Add(this.returnEntryButton);
             this.Controls.Add(this.queryDataViewer);
@@ -91,5 +104,6 @@
         private System.Windows.Forms.DataGridView queryDataViewer;
         private System.Windows.Forms.Button returnEntryButton;
         private System.Windows.Forms.Button deleteEntryButton;
+        private System.Windows.Forms.Button updateEntryButton;
     }
 }

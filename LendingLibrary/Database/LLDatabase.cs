@@ -5,7 +5,7 @@
  */
 
 /*
- *  Handles the initialization of a Database according to a static filepath
+ *  Handles all database operations for a program
  */
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace LendingLibrary.Database
         //  COMPUTER SPECIFIC CONSTANTS
         String server = "Server=CODY-PC\\LENDLIBRARY";
         String ssis = "Integrated security=SSPI";
-        String dbname = "Inventory";
+        String dbname = "Items";
 
         //  Stored Variables
         private SqlConnection conn;
@@ -117,7 +117,6 @@ namespace LendingLibrary.Database
                 "ITEM_DATE_LEND date NOT NULL," +
                 "ITEM_DATE_RETURN date," +
                 "ITEM_DESCRIPTION varchar(255)," +
-                "ITEM_INCLUDE_IN_AVG bit NOT NULL," +
                 "ITEM_IS_DELETED bit NOT NULL)";
 
             return performCommand(commStr);
@@ -129,18 +128,17 @@ namespace LendingLibrary.Database
          *      0, if Successful
          *     -1, if the Item is not added
          */
-        public int insertToItems(String name, String lendee, DateTime lend, String descript, Boolean avg)
+        public int insertToItems(String name, String lendee, DateTime lend, String descript)
         {
             String commStr = "INSERT INTO dbo.Items (ITEM_NAME,ITEM_LENDEE," +
-                "ITEM_DATE_LEND,ITEM_INCLUDE_IN_AVG," +
-                "ITEM_IS_DELETED) VALUES (@name, @lendee, @lenddate, @descript, @avg, @del)";
+                "ITEM_DATE_LEND,ITEM_DESCRIPTION,ITEM_IS_DELETED) VALUES "+
+                "(@name, @lendee, @lenddate, @descript, @del)";
             SqlCommand c = new SqlCommand(commStr, conn);
 
             c.Parameters.AddWithValue("@name", name);
             c.Parameters.AddWithValue("@lendee", lendee);
             c.Parameters.AddWithValue("@lenddate", lend);
             c.Parameters.AddWithValue("@descript", descript);
-            c.Parameters.AddWithValue("@avg", avg);
             c.Parameters.AddWithValue("@del", false);
 
             try
@@ -158,6 +156,43 @@ namespace LendingLibrary.Database
 
             //  Close the Connection if it is open
             if (conn.State == System.Data.ConnectionState.Open) conn.Close();
+
+            return 0;
+        }
+
+        /*  fullUpdate() updates every field in an entry
+         * 
+         *  Returns:
+         *      0, if successful
+         *     -1, if the item is not updated
+         */
+        public int fullUpdate(int key, String name, String lendee, DateTime lend,
+            DateTime returned, String description)
+        {
+            String commStr = "UPDATE dbo.Items SET ITEM_NAME = @name, " +
+                "ITEM_LENDEE = @lendee, ITEM_DATE_LEND = @lenddate, " +
+                "ITEM_DATE_RETURN = @returndate, ITEM_DESCRIPTION = @descript" +
+                " WHERE ITEM_ID = @id";
+            SqlCommand c = new SqlCommand(commStr, conn);
+
+            c.Parameters.AddWithValue("@id", key);
+            c.Parameters.AddWithValue("@name", name);
+            c.Parameters.AddWithValue("@lendee", lendee);
+            c.Parameters.AddWithValue("@lenddate", lend);
+            c.Parameters.AddWithValue("@returndate", returned);
+            c.Parameters.AddWithValue("@descript", description);
+
+            try
+            {
+                openConnection();
+                c.ExecuteNonQuery();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "LendingLibrary", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return -1;
+            }
 
             return 0;
         }
@@ -229,9 +264,8 @@ namespace LendingLibrary.Database
         {
             conn.Open();
             String commStr = "SELECT ITEM_ID, ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, "+
-                "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG "+
-                "FROM Items WHERE ITEM_LENDEE='" + lendee + "' AND " +
-                "ITEM_IS_DELETED=0";
+                "ITEM_DATE_LEND, ITEM_DATE_RETURN FROM Items WHERE ITEM_LENDEE='" + 
+                lendee + "' AND " + "ITEM_IS_DELETED=0";
 
             return new SqlDataAdapter(commStr, conn);
             //  NOTE:  NEED TO CLOSE THE CONNECTION AFTER USING THIS FUNCTION!!
@@ -245,8 +279,7 @@ namespace LendingLibrary.Database
         {
             conn.Open();
             String commStr = "SELECT ITEM_ID, ITEM_LENDEE, ITEM_NAME, ITEM_DESCRIPTION, " +
-                "ITEM_DATE_LEND, ITEM_DATE_RETURN, ITEM_INCLUDE_IN_AVG FROM Items " +
-                "WHERE ITEM_IS_DELETED=0";
+                "ITEM_DATE_LEND, ITEM_DATE_RETURN FROM Items WHERE ITEM_IS_DELETED=0";
 
             return new SqlDataAdapter(commStr, conn);
             //  NOTE:  NEED TO CLOSE THE CONNECTION AFTER USING THIS FUNCTION!!

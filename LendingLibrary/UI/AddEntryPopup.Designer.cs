@@ -38,7 +38,6 @@
             this.itemDatePicker = new System.Windows.Forms.DateTimePicker();
             this.itemDescriptionLabel = new System.Windows.Forms.Label();
             this.itemDescriptionText = new System.Windows.Forms.TextBox();
-            this.itemAverageCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -129,25 +128,12 @@
             this.itemDescriptionText.Size = new System.Drawing.Size(160, 20);
             this.itemDescriptionText.TabIndex = 9;
             // 
-            // itemAverageCheckbox
-            // 
-            this.itemAverageCheckbox.AutoSize = true;
-            this.itemAverageCheckbox.Checked = true;
-            this.itemAverageCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.itemAverageCheckbox.Location = new System.Drawing.Point(100, 155);
-            this.itemAverageCheckbox.Name = "itemAverageCheckbox";
-            this.itemAverageCheckbox.Size = new System.Drawing.Size(121, 17);
-            this.itemAverageCheckbox.TabIndex = 11;
-            this.itemAverageCheckbox.Text = "Include in Average?";
-            this.itemAverageCheckbox.UseVisualStyleBackColor = true;
-            // 
             // AddEntryPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.ControlBox = false;
-            this.Controls.Add(this.itemAverageCheckbox);
             this.Controls.Add(this.itemDescriptionText);
             this.Controls.Add(this.itemDescriptionLabel);
             this.Controls.Add(this.itemDatePicker);
@@ -179,6 +165,5 @@
         private System.Windows.Forms.DateTimePicker itemDatePicker;
         private System.Windows.Forms.Label itemDescriptionLabel;
         private System.Windows.Forms.TextBox itemDescriptionText;
-        private System.Windows.Forms.CheckBox itemAverageCheckbox;
     }
 }

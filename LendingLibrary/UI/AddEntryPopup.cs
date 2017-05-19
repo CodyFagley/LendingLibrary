@@ -41,8 +41,7 @@ namespace LendingLibrary
         {
             //  TODO:  Add the current entry
             int rtn = db.insertToItems(itemNameText.Text, itemLendeeText.Text, 
-                itemDatePicker.Value, itemDescriptionText.Text, 
-                itemAverageCheckbox.Checked);
+                itemDatePicker.Value, itemDescriptionText.Text);
 
             if (rtn < 0) MessageBox.Show("Entry could not be Added");
 
