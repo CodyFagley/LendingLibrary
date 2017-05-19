@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using LendingLibrary.Database;
 
 namespace LendingLibrary
 {
@@ -13,18 +14,20 @@ namespace LendingLibrary
     {
         //  Current Entry Key Number
         int primKey;
+        LLDatabase db;
 
-        public ReturnEntryPopup(int key)
+        public ReturnEntryPopup(int key, LLDatabase DB)
         {
             InitializeComponent();
             primKey = key;
+            db = DB;
         }
 
         //  Update current Entry, then close the dialog
         private void returnEntryButton_Click(object sender, EventArgs e)
         {
             
-            //  TODO:  If it exists, remove the current entry
+            db.returnItem(primKey, returnPicker.Value);
             Close();
         }
         
@@ -35,10 +38,5 @@ namespace LendingLibrary
         {
             Close();
         }
-
-
-
-
-        
     }
 }

@@ -132,7 +132,7 @@ namespace LendingLibrary.Database
         public int insertToItems(String name, String lendee, DateTime lend, String descript, Boolean avg)
         {
             String commStr = "INSERT INTO dbo.Items (ITEM_NAME,ITEM_LENDEE," +
-                "ITEM_DATE_LEND,ITEM_DESCRIPTION,ITEM_INCLUDE_IN_AVG," +
+                "ITEM_DATE_LEND,ITEM_INCLUDE_IN_AVG," +
                 "ITEM_IS_DELETED) VALUES (@name, @lendee, @lenddate, @descript, @avg, @del)";
             SqlCommand c = new SqlCommand(commStr, conn);
 
@@ -162,18 +162,63 @@ namespace LendingLibrary.Database
             return 0;
         }
 
+        /*  returnItem() updates returnDate for item, primkey
+         * 
+         *  Returns:
+         *      0, if successful
+         *     -1, if item is not marked as returned
+         */
+        public int returnItem(int primKey, DateTime date)
+        {
+            String commStr = "UPDATE dbo.Items SET ITEM_DATE_RETURN = @date " +
+                "WHERE ITEM_ID = @id";
+            SqlCommand c = new SqlCommand(commStr, conn);
+
+            c.Parameters.AddWithValue("@id", primKey);
+            c.Parameters.AddWithValue("@date", date);
+
+            try
+            {
+                openConnection();
+                c.ExecuteNonQuery();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "LendingLibrary", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return -1;
+            }
+
+            return 0;
+        }
+
         /*  deleteItem() updates isDeleted to be true for item, primKey
          *  
-         *      Returns:
-         *          0, if successful
-         *         -1, if item is not soft deleted
+         *  Returns:
+         *      0, if successful
+         *      -1, if item is not soft deleted
          */     
         public int deleteItem(int primKey)
         {
-            String commStr = String.Format("UPDATE " + dbname + " SET ITEM_IS_DELETED = 1 " +
-                "WHERE ITEM_ID = {0}", primKey);
+            String commStr = "UPDATE dbo.Items SET ITEM_IS_DELETED = 1 " +
+                "WHERE ITEM_ID = @id";
+            SqlCommand c = new SqlCommand(commStr, conn);
 
-            return performCommand(commStr);
+            c.Parameters.AddWithValue("@id", primKey);
+
+            try
+            {
+                openConnection();
+                c.ExecuteNonQuery();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "LendingLibrary", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return -1;
+            }
+
+            return 0;
         }
 
         /*  

@@ -62,7 +62,7 @@ namespace LendingLibrary.UI
             int key = t.Rows[row].Field<int>(0);
             //MessageBox.Show(key.ToString());
 
-            ReturnEntryPopup rep = new ReturnEntryPopup(key);
+            ReturnEntryPopup rep = new ReturnEntryPopup(key, db);
             rep.Text = t.Rows[row].Field<string>(2);
             rep.ShowDialog();
         }

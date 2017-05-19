@@ -30,8 +30,8 @@
         {
             this.returnEntryButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.returnCalendar = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
+            this.returnPicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // returnEntryButton
@@ -54,13 +54,6 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // returnCalendar
-            // 
-            this.returnCalendar.Location = new System.Drawing.Point(25, 36);
-            this.returnCalendar.Name = "returnCalendar";
-            this.returnCalendar.ShowToday = false;
-            this.returnCalendar.TabIndex = 4;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -71,18 +64,25 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Return Date";
             // 
-            // RemoveEntryPopup
+            // returnPicker
+            // 
+            this.returnPicker.Location = new System.Drawing.Point(25, 61);
+            this.returnPicker.Name = "returnPicker";
+            this.returnPicker.Size = new System.Drawing.Size(200, 20);
+            this.returnPicker.TabIndex = 6;
+            // 
+            // ReturnEntryPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.ControlBox = false;
+            this.Controls.Add(this.returnPicker);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.returnCalendar);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.returnEntryButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "RemoveEntryPopup";
+            this.Name = "ReturnEntryPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Remove Entry";
             this.TopMost = true;
@@ -95,7 +95,7 @@
 
         private System.Windows.Forms.Button returnEntryButton;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.MonthCalendar returnCalendar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker returnPicker;
     }
 }
