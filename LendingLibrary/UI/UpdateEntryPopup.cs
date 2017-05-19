@@ -43,6 +43,14 @@ namespace LendingLibrary.UI
             itemDescriptionText.Text = description;
         }
 
+        public void init(String name, String lendee, DateTime lend, String description)
+        {
+            itemNameText.Text = name;
+            itemLendeeText.Text = lendee;
+            dateLendPicker.Value = lend;
+            itemDescriptionText.Text = description;
+        }
+
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();

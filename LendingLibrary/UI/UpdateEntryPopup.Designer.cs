@@ -107,6 +107,7 @@
             this.dateReturnPicker.Name = "dateReturnPicker";
             this.dateReturnPicker.Size = new System.Drawing.Size(160, 20);
             this.dateReturnPicker.TabIndex = 7;
+            this.dateReturnPicker.Value = new System.DateTime(2017, 5, 19, 10, 54, 40, 0);
             // 
             // updateButton
             // 
@@ -144,7 +145,7 @@
             this.itemDescriptionText.Size = new System.Drawing.Size(160, 20);
             this.itemDescriptionText.TabIndex = 11;
             // 
-            // updateEntryPopup
+            // UpdateEntryPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -163,7 +164,7 @@
             this.Controls.Add(this.itemNameText);
             this.Controls.Add(this.itemNameLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "updateEntryPopup";
+            this.Name = "UpdateEntryPopup";
             this.Text = "Update Entry";
             this.ResumeLayout(false);
             this.PerformLayout();

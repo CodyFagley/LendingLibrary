@@ -91,18 +91,25 @@ namespace LendingLibrary.UI
             int row = queryDataViewer.SelectedRows[0].Index;
             int key = t.Rows[row].Field<int>(0);
             //MessageBox.Show(key.ToString());
+            UpdateEntryPopup uep = new UpdateEntryPopup(db, key);
 
             //  Existing Fields
             String iname = t.Rows[row].Field<String>(2);
             String ilendee = t.Rows[row].Field<String>(1);
             String idescript = t.Rows[row].Field<String>(3);
             DateTime ilend = t.Rows[row].Field<DateTime>(4);
-            DateTime ireturn = t.Rows[row].Field<DateTime>(5);
+            DateTime ireturn;
+            if (t.Rows[row].IsNull(5))
+            {
+                uep.init(iname, ilendee, ilend, idescript);
+            }
+            else
+            {
+                ireturn = t.Rows[row].Field<DateTime>(5);
 
-            UpdateEntryPopup uep = new UpdateEntryPopup(db, key);
-            
-            //  Populate Form
-            uep.init(iname, ilendee, ilend, ireturn, idescript);
+                //  Populate Form
+                uep.init(iname, ilendee, ilend, ireturn, idescript);
+            }
 
             uep.ShowDialog();
             Close();

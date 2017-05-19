@@ -22,7 +22,7 @@ namespace LendingLibrary.Database
         //  COMPUTER SPECIFIC CONSTANTS
         String server = "Server=CODY-PC\\LENDLIBRARY";
         String ssis = "Integrated security=SSPI";
-        String dbname = "Items";
+        String dbname = "Test2";
 
         //  Stored Variables
         private SqlConnection conn;
